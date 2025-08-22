@@ -5,7 +5,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 // ProfileDetailsForm handles the user profile form UI and validation
-function ProfileDetailsForm({ formData, setFormData, handleFormDataChange, isEdit, handleModal }) {
+function ProfileDetailsForm({ formData, setFormData, handleFormDataChange, isEdit, handleModal, handleDataUpdate}) {
 
   // State for field-level error messages
   const [error, setError] = useState({
@@ -23,12 +23,15 @@ function ProfileDetailsForm({ formData, setFormData, handleFormDataChange, isEdi
 
 
   function updateData(data) {
+    // Use parent state for update, not localStorage directly
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const newData = users.map(user =>
       user.id === data.id ? { ...user, ...data } : user
     );
-    localStorage.setItem('users', JSON.stringify(newData));
+    handleDataUpdate(newData); // This will update both state and localStorage in UserList
+    handleModal(false); // Close the modal after saving
   }
+
   // Validate all fields and show errors/alerts
   const handleSave = () => {
     let hasError = false;
@@ -89,7 +92,7 @@ function ProfileDetailsForm({ formData, setFormData, handleFormDataChange, isEdi
     setShowAlert(true);
     setTimeout(() => setShowAlert(false), 3000);
     updateData (formData);
-    handleModal(false); // Close the modal after saving
+     // Close the modal after saving
   };
   
 

@@ -6,7 +6,7 @@ import ProfileDetailsForm from "./ProfileDetails";
 import "./Profile.css"
 
 // UserProfile is the main profile page layout
-function UserProfile({isEdit, currentData, handleModal}) {
+function UserProfile({isEdit, currentData, handleModal, handleDataUpdate}) {
 
   // State for all profile form fields
   const [formData, setFormData] = useState({
@@ -42,6 +42,7 @@ function UserProfile({isEdit, currentData, handleModal}) {
             handleFormDataChange={handleFormDataChange}
             isEdit={isEdit}
             handleModal={handleModal}
+            handleDataUpdate={handleDataUpdate}
 
           />
         </Grid>

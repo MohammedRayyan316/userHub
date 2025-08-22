@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,12 +11,36 @@ import { Button } from '@mui/material';
 import UserProfile from '../profile/Profile.jsx';
 import Modal from '@mui/material/Modal';
 
+const dummyUsers = 
+    [
+        { id: 1, userName: 'Alice', fullName: 'Alice Johnson' , dob:'02/21/2002', email: 'alicejohn@gmail.com', phone: '1234567890', bio: 'Loves hiking and outdoor adventures.'},
+        { id: 2, userName: 'Bob', fullName: 'Bob Smith' , dob:'04/02/2003', email: 'bobsmith@gmail.com', phone: '123343490', bio: 'Loves coding and jogging.'},
+        { id: 3, userName: 'Syed', fullName: 'Syed Ali' , dob:'05/04/2001', email: 'syedali@gmail.com', phone: '1234344390', bio: 'Loves salah and outdoor adventures.'},
+    ]   
+
 function UserList() {
+      
+
+  // Initialize localStorage with dummyUsers if empty (only once)
+  useEffect(() => {
+    if (!localStorage.getItem("users")) {
+      localStorage.setItem("users", JSON.stringify(dummyUsers));
+    }
+  }, []);
 
 
     const [isEdit, setIsEdit] = useState(false);
     const [open, setOpen] = useState(false);
     const [currentData, setCurrentData] = useState({});
+  const [data, setData] = useState(() => {
+    const users = localStorage.getItem("users");
+    return users ? JSON.parse(users) : dummyUsers;
+  });
+
+  // Keep data in sync with localStorage after updates
+  useEffect(() => {
+    localStorage.setItem("users", JSON.stringify(data));
+  }, [data]);
     
     
 
@@ -32,7 +56,10 @@ function UserList() {
         // For example, you can fetch the user data based on the id and set it in state
     }
 
-
+  const handleDataUpdate = (updatedData) => {
+    setData(updatedData);
+    // localStorage will be updated by useEffect above
+  }
 
 
   return (
@@ -49,7 +76,7 @@ function UserList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {JSON.parse(localStorage.getItem('users')).map((row) => (
+          {data.map((row) => (
             <TableRow
               key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -76,7 +103,7 @@ function UserList() {
         aria-describedby="modal-modal-description"
       >
         <div style={{ backgroundColor: 'white', marginLeft: '100px', marginRight: '100px', width: '90vw', height: '90vh', overflowY:'auto', zIndex: 1  }}>
-          <UserProfile isEdit={isEdit} currentData={currentData} handleModal={handleModal}/>
+          <UserProfile isEdit={isEdit} currentData={currentData} handleModal={handleModal} handleDataUpdate={handleDataUpdate}/>
         </div>
       </Modal>
       </>
