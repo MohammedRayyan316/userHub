@@ -67,20 +67,19 @@ npm start
 The main dashboard displays a list of users with options to edit or view details.
 
 ---
-```
-📌 Future Improvements
+
+## 📌 Future Improvements
 	•	✅ Integration with a backend (Node.js/Express + Database).
 	•	✅ Pagination & search in user list.
 	•	✅ Dark/Light mode toggle.
 	•	✅ Unit tests with Jest & React Testing Library.
-```
 
 ---
 
-👨‍💻 Author
-
-Mohammed Rayyan
-📌 Frontend Developer (React.js)
-🔗 [Visit GitHub]([https://github.com](https://github.com/MohammedRayyan316))
+## 👨‍💻 Author
+**Mohammed Rayyan**  
+📌 Frontend Developer (React.js)  
+🔗 [GitHub Profile](https://github.com/mohammedrayyan-dev)  
+🔗 [LinkedIn](https://linkedin.com/in/mohammedrayyan-dev)
 
 ⭐ If you like this project, consider giving it a star on GitHub!
