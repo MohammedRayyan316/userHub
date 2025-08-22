@@ -24,6 +24,7 @@ This project was built to practice and demonstrate **React fundamentals**, **for
 ---
 
 ## 📂 Project Structure
+```
 userHub/
 ┣ 📂 src/
 ┃ ┣ 📂 components/     # Reusable UI components (Forms, Cards, Navbar, etc.)
@@ -33,6 +34,7 @@ userHub/
 ┃ ┗ index.js           # Entry point
 ┣ 📜 package.json
 ┗ 📜 README.md
+```
 
 ---
 
@@ -65,18 +67,20 @@ npm start
 The main dashboard displays a list of users with options to edit or view details.
 
 ---
-
+```
 📌 Future Improvements
 	•	✅ Integration with a backend (Node.js/Express + Database).
 	•	✅ Pagination & search in user list.
 	•	✅ Dark/Light mode toggle.
 	•	✅ Unit tests with Jest & React Testing Library.
+```
 
 ---
 
 👨‍💻 Author
 
+Mohammed Rayyan
 📌 Frontend Developer (React.js)
-🔗 GitHub Profile
+🔗 [Visit GitHub]([https://github.com](https://github.com/MohammedRayyan316))
 
 ⭐ If you like this project, consider giving it a star on GitHub!
