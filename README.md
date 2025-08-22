@@ -19,7 +19,6 @@ This project was built to practice and demonstrate **React fundamentals**, **for
 ## 🛠️ Tech Stack
 - **React.js** – UI development  
 - **Material UI (MUI)** – Responsive UI components  
-- **React Router (optional)** – For navigation  
 - **React Hooks** – State and effect management  
 
 ---
