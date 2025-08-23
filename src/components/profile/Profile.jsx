@@ -5,7 +5,6 @@ import AvatarCard from "./AvatarCard";
 import ProfileDetailsForm from "./ProfileDetails";
 import "./Profile.css"
 
-// UserProfile is the main profile page layout
 function UserProfile({isEdit, currentData, handleModal, handleDataUpdate}) {
 
   // State for all profile form fields
@@ -16,7 +15,8 @@ function UserProfile({isEdit, currentData, handleModal, handleDataUpdate}) {
     dob: currentData["dob"],
     email: currentData["email"],
     phone: currentData["phone"],
-    bio: currentData["bio"]
+    bio: currentData["bio"],
+    avatar: currentData["avatar"] || "" // Add avatar field
   });
 
   // Handler to update any field in formData
@@ -32,7 +32,13 @@ function UserProfile({isEdit, currentData, handleModal, handleDataUpdate}) {
       <Grid container spacing={3} sx={{ mt: 8, p: 3 }} alignItems="flex-start">
         {/* Left Box: Avatar and user info */}
         <Grid item xs={12} md={4} lg={3}>
-          <AvatarCard userName={formData.userName} userId={formData.userId} />
+          <AvatarCard 
+            userName={formData.userName} 
+            userId={formData.userId} 
+            avatar={formData.avatar}
+            onAvatarChange={handleFormDataChange('avatar')}
+            isEdit={isEdit}
+          />
         </Grid>
         {/* Right Box: Profile details form */}
         <Grid item xs={12} md={8} lg={9}>

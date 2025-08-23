@@ -3,10 +3,10 @@ import { Card, CardContent, Avatar, Button, Typography, Box } from "@mui/materia
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 // AvatarCard displays the user's avatar, display name, and user ID
-function AvatarCard({ userName, userId }) {
-  // State for preview image and error message
-  const [previewImage, setPreviewImage] = useState("");
+function AvatarCard({ userName, userId, avatar, onAvatarChange, isEdit }) {
+  // State for error message and preview image
   const [error, setError] = useState("");
+  const [previewImage, setPreviewImage] = useState(avatar || "");
 
   // Handles avatar image upload and validation
   const handleAvatarChange = (e) => {
@@ -21,12 +21,18 @@ function AvatarCard({ userName, userId }) {
 
     if (file.size > 2 * 1024 * 1024) {
       setError("File size must be less than 2MB");
+      return;
     }
 
     setError("");
     const reader = new FileReader();
     reader.onloadend = () => {
-      setPreviewImage(reader.result);
+      const imageData = reader.result;
+      setPreviewImage(imageData);
+      // Call the parent component's handler with the image data
+      if (onAvatarChange) {
+        onAvatarChange(imageData);
+      }
     };
     reader.readAsDataURL(file);
   };
@@ -37,7 +43,7 @@ function AvatarCard({ userName, userId }) {
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mt: 7 }}>
           {/* User avatar image */}
           <Avatar 
-            src={previewImage} 
+            src={previewImage || avatar} 
             sx={{ width: 150, height: 150, mb: 2 }} 
           />
           {/* Error message for avatar upload */}
@@ -50,6 +56,7 @@ function AvatarCard({ userName, userId }) {
         {/* Upload avatar button */}
         <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
           <Button
+            disabled={!isEdit}
             variant="contained"
             startIcon={<AddAPhotoIcon />}
             component="label"
