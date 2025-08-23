@@ -1,4 +1,5 @@
-# UserHub 👤
+# userHub <img width="35" height="35" alt="userHub_Icon" src="https://github.com/user-attachments/assets/53f0450c-367f-4355-882e-2109e7007670" />
+
 
 UserHub is a **React-based user management system** that allows you to view, edit, and manage user profiles with an intuitive interface.  
 This project was built to practice and demonstrate **React fundamentals**, **form validation**, and **state management** in a real-world style application.
@@ -13,6 +14,12 @@ This project was built to practice and demonstrate **React fundamentals**, **for
 - 🔄 **State Management** – User data updates handled using React state (with room to scale using React Query/Context).  
 - ✅ **Error Handling** – Inline error messages and input highlighting for invalid fields.  
 - ♿ **Accessibility** – Proper labels, focus states, and keyboard navigation support.  
+
+---
+
+## 🌐 Live Demo
+
+🔗 [View Project on Live Server](https://userhubio.vercel.app)
 
 ---
 
@@ -49,6 +56,8 @@ cd userHub
 npm install
 npm start
 ```
+ℹ️ Note: User data is stored in localStorage, so it persists across page reloads. No external database or API setup required.
+
 ---
 
 ## 🖼️ Screenshots
@@ -68,7 +77,7 @@ The main dashboard displays a list of users with options to edit or view details
 
 ## 🎥 Demo
 
-https://github.com/user-attachments/assets/e1454d43-78f1-47d8-be37-4605861a47cc
+https://github.com/user-attachments/assets/23c3a9cb-b30b-4673-a3f4-059e53bb4b44
 
 ---
 
