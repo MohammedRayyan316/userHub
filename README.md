@@ -24,7 +24,8 @@ This project was built to practice and demonstrate **React fundamentals**, **for
 ---
 
 ## 📂 Project Structure
-```
+
+```bash
 userHub/
 ┣ 📂 src/
 ┃ ┣ 📂 components/     # Reusable UI components (Forms, Cards, Navbar, etc.)
@@ -50,29 +51,34 @@ npm start
 ```
 ---
 
-🖼️ Screenshots
+## 🖼️ Screenshots
 
-📊 Dashboard
-<img width="1440" height="813" alt="DashBoard" src="https://github.com/user-attachments/assets/dbed593a-bbf0-41e8-a1cc-73c4dcc40c2b" />
+### 📊 Dashboard
+<img width="1440" height="788" alt="Dashboard" src="https://github.com/user-attachments/assets/faa45387-ba77-4a43-8e91-9bf451a1b985" />
 
-✍🏻 Edit Interface
-<img width="1440" height="812" alt="EditUI" src="https://github.com/user-attachments/assets/1a32f11d-dc0e-41ac-a8be-67b7a75c59cf" />
+### ✍🏻 Edit Interface
+<img width="1440" height="788" alt="Edit Interface" src="https://github.com/user-attachments/assets/901da0ba-14e4-4785-9853-8a865dd4bbd1" />
 
-👀 View Interface
-<img width="1439" height="812" alt="ViewUI" src="https://github.com/user-attachments/assets/1ddd0019-bde1-4262-91d3-73d108e85f51" />
-
-✅ Submit Button
-<img width="1440" height="813" alt="SubmitButton" src="https://github.com/user-attachments/assets/dfcc024e-1b73-4efe-a466-b0b54448b3d7" />
+### 👀 View Interface
+<img width="1440" height="788" alt="View Interface" src="https://github.com/user-attachments/assets/c98a55c5-5152-42e5-98fe-a18c9609184e" />
 
 The main dashboard displays a list of users with options to edit or view details.
 
 ---
 
+## 🎥 Demo
+
+https://github.com/user-attachments/assets/e1454d43-78f1-47d8-be37-4605861a47cc
+
+---
+
 ## 📌 Future Improvements
-	•	✅ Integration with a backend (Node.js/Express + Database).
-	•	✅ Pagination & search in user list.
-	•	✅ Dark/Light mode toggle.
-	•	✅ Unit tests with Jest & React Testing Library.
+
+- ✅ Integration with a backend (Node.js/Express + Database).
+- ✅ Integration with a backend (Node.js/Express + Database).
+- ✅ Pagination & search in user list. 
+- ✅ Dark/Light mode toggle. 
+- ✅ Unit tests with Jest & React Testing Library. 
 
 ---
 
