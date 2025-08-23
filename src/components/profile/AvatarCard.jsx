@@ -3,7 +3,7 @@ import { Card, CardContent, Avatar, Button, Typography, Box } from "@mui/materia
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 // AvatarCard displays the user's avatar, display name, and user ID
-function AvatarCard({ displayName, userId }) {
+function AvatarCard({ userName, userId }) {
   // State for preview image and error message
   const [previewImage, setPreviewImage] = useState("");
   const [error, setError] = useState("");
@@ -43,7 +43,7 @@ function AvatarCard({ displayName, userId }) {
           {/* Error message for avatar upload */}
           {error && <Typography color="error">{error}</Typography>}
           {/* Display name and user ID */}
-          <Typography variant="h4">{displayName}</Typography>
+          <Typography variant="h4">{userName}</Typography>
           <Typography color="text.secondary">{userId}</Typography>
         </Box>
 

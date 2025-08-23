@@ -1,16 +1,14 @@
-import {useState, useId} from 'react';
+import { useState } from 'react';
 import { Card, CardContent, Typography, TextField, Button, Alert } from "@mui/material";
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 // ProfileDetailsForm handles the user profile form UI and validation
 function ProfileDetailsForm({ formData, setFormData, handleFormDataChange, isEdit, handleModal, handleDataUpdate}) {
 
   // State for field-level error messages
   const [error, setError] = useState({
-    DisplayName: '',
+    userName: '',
     fullName: '',
+    dob: '',
     email: '',
     phone: '',
     bio: ''
@@ -26,7 +24,7 @@ function ProfileDetailsForm({ formData, setFormData, handleFormDataChange, isEdi
     // Use parent state for update, not localStorage directly
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const newData = users.map(user =>
-      user.id === data.id ? { ...user, ...data } : user
+      user.userId == data.userId ? { ...user, ...data } : user
     );
     handleDataUpdate(newData); // This will update both state and localStorage in UserList
     handleModal(false); // Close the modal after saving
@@ -36,40 +34,26 @@ function ProfileDetailsForm({ formData, setFormData, handleFormDataChange, isEdi
   const handleSave = () => {
     let hasError = false;
     const newError = {
-      DisplayName: '',
+      userName: '',
       fullName: '',
+      dob: '',
       email: '',
       phone: '',
       bio: ''
     };
+
     // Display Name validation
-    if (!formData.DisplayName || formData.DisplayName.trim().length < 3) {
-      newError.DisplayName = 'Display Name is required (min 3 chars)';
+    if (!formData.userName || formData.userName.trim().length < 3) {
+      newError.userName = 'User Name is required (min 3 chars)';
       hasError = true;
     }
+
     // Full Name validation
     if (!formData.fullName || formData.fullName.trim().length < 3) {
       newError.fullName = 'Full Name is required (min 3 chars)';
       hasError = true;
     }
-    // Email validation
-    if (!formData.email) {
-      newError.email = 'Email is required';
-      hasError = true;
-    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      newError.email = 'Enter a valid email address';
-      hasError = true;
-    }
-    // Phone validation (optional, but if present, must be 10 digits)
-    if (formData.phone && !/^\d{10}$/.test(formData.phone)) {
-      newError.phone = 'Phone must be 10 digits';
-      hasError = true;
-    }
-    // Bio validation (optional, max 100 chars)
-    if (formData.bio && formData.bio.length > 100) {
-      newError.bio = 'Bio must be 100 characters or less';
-      hasError = true;
-    }
+
     // DOB validation
     if (!formData.dob) {
       setAlertType('error');
@@ -79,6 +63,28 @@ function ProfileDetailsForm({ formData, setFormData, handleFormDataChange, isEdi
       setTimeout(() => setShowAlert(false), 3000);
       return;
     }
+
+    // Email validation
+    if (!formData.email) {
+      newError.email = 'Email is required';
+      hasError = true;
+    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+      newError.email = 'Enter a valid email address';
+      hasError = true;
+    }
+
+    // Phone validation (optional, but if present, must be 10 digits)
+    if (formData.phone && !/^\d{10}$/.test(formData.phone)) {
+      newError.phone = 'Phone must be 10 digits';
+      hasError = true;
+    }
+
+    // Bio validation (optional, max 100 chars)
+    if (formData.bio && formData.bio.length > 100) {
+      newError.bio = 'Bio must be 100 characters or less';
+      hasError = true;
+    }
+    
     setError(newError);
     if (hasError) {
       setAlertType('error');
@@ -119,26 +125,24 @@ function ProfileDetailsForm({ formData, setFormData, handleFormDataChange, isEdi
           inputProps={{ readOnly: true }}
           helperText = "User ID is permanent and cannot be changed."
         />
-        {/* Display Name field with validation and only alphabets allowed */}
+
+        {/* User Name field with validation */}
         <TextField
-          label="Display Name"
+          label="User Name"
           fullWidth
           margin="normal"
           required
           disabled = {!isEdit}
-          value={formData.DisplayName}
-          onChange={e => {
-            // Only allow alphabets and spaces
-            const onlyLetters = e.target.value.replace(/[^a-zA-Z ]/g, "");
-            handleFormDataChange('DisplayName')({ target: { value: onlyLetters } });
-          }}
-          error={!!error.DisplayName}
+          value={formData.userName}
+          onChange={handleFormDataChange('userName')}
+          error={!!error.userName}
           inputProps={{ 
             minLength: 3,
             maxLength: 20,
-            pattern: "[a-zA-Z]"}}
-          helperText={error.DisplayName || "Enter your display name (alphabets only)"}
+          }}
+          helperText={error.userName || "Enter your user name (alphabets only)"}
         />
+
         {/* Full Name field with validation and only alphabets allowed */}
         <TextField
           label="Full Name"
@@ -150,7 +154,7 @@ function ProfileDetailsForm({ formData, setFormData, handleFormDataChange, isEdi
           onChange={e => {
             // Only allow alphabets and spaces
             const onlyLetters = e.target.value.replace(/[^a-zA-Z ]/g, "");
-            handleFormDataChange('fullName')({ target: { value: onlyLetters } });
+            setFormData((prev) => ({ ...prev, fullName: onlyLetters }));
           }}
           error={!!error.fullName}
           inputProps={{ 
@@ -159,25 +163,19 @@ function ProfileDetailsForm({ formData, setFormData, handleFormDataChange, isEdi
             pattern: "[a-z A-Z]"}}
           helperText={error.fullName || "Enter your full name (3-20 characters, alphabets only)"}
         />
-        {/* Date of Birth picker with validation */}
-        {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            label="Select Date"
-            value={formData.dob}
-            disabled = {!isEdit}
-            onChange={handleFormDataChange('dob')}
-            slotProps={{
-              textField: {
-                helperText: 'MM/DD/YYYY',
-                error: !formData.dob,
-                variant: 'outlined',
-                fullWidth: true,
-                required: true,
-                margin: 'normal',
-              },
-            }}
-          />
-        </LocalizationProvider> */}
+
+        {/* Date of Birth with validation */}
+        <TextField
+        label="Date of Birth"
+        fullWidth
+        margin="normal"
+        required
+        disabled = {!isEdit}
+        value={formData.dob}
+        onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
+        helperText="Format: MM/DD/YYYY"
+        />
+
         {/* Email field with validation */}
         <TextField
           label="Email"
@@ -191,6 +189,7 @@ function ProfileDetailsForm({ formData, setFormData, handleFormDataChange, isEdi
           error={!!error.email}
           helperText={error.email || "Enter your email address"}
         />
+
         {/* Phone field with validation (optional) */}
         <TextField 
           label="Phone" 
@@ -207,6 +206,7 @@ function ProfileDetailsForm({ formData, setFormData, handleFormDataChange, isEdi
             pattern: "[0-9]"}}
           helperText={error.phone || "(Optional) Enter your Phone Number"}
         />
+
         {/* Bio field with validation (optional) */}
         <TextField 
           label="Bio" 
@@ -221,6 +221,7 @@ function ProfileDetailsForm({ formData, setFormData, handleFormDataChange, isEdi
           inputProps={{ maxLength: 100 }}
           helperText={error.bio || "(Optional) Write a short bio (max 100 characters)"}
         />
+
         {/* Save button triggers validation and save */}
         {isEdit && <Button
           variant="contained"

@@ -1,4 +1,4 @@
-import { useState, useId } from "react";
+import { useState } from "react";
 import { Grid, Box } from "@mui/material";
 import Navbar from "./Navbar";
 import AvatarCard from "./AvatarCard";
@@ -10,8 +10,8 @@ function UserProfile({isEdit, currentData, handleModal, handleDataUpdate}) {
 
   // State for all profile form fields
   const [formData, setFormData] = useState({
-    userId: useId(),
-    DisplayName: currentData["userName"] ,
+    userId: currentData["userId"],
+    userName: currentData["userName"] ,
     fullName: currentData["fullName"],
     dob: currentData["dob"],
     email: currentData["email"],
@@ -32,7 +32,7 @@ function UserProfile({isEdit, currentData, handleModal, handleDataUpdate}) {
       <Grid container spacing={3} sx={{ mt: 8, p: 3 }} alignItems="flex-start">
         {/* Left Box: Avatar and user info */}
         <Grid item xs={12} md={4} lg={3}>
-          <AvatarCard displayName={formData.DisplayName} userId={formData.userId} />
+          <AvatarCard userName={formData.userName} userId={formData.userId} />
         </Grid>
         {/* Right Box: Profile details form */}
         <Grid item xs={12} md={8} lg={9}>
